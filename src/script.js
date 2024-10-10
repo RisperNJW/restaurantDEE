@@ -1,96 +1,63 @@
-// function to display random recipes on website
-function randomRecipe() {
-    const url = 'https://www.themealdb.com/api/json/v1/1/random.php';
-    fetch(url)
-        .then(response => response.json())
-        .then(data => displayFood(data.meals));
+// Function to get for recipes
 
-}
-randomRecipe();
-// Function to initialize random recipeson website
-function initialize() {
-    document.getElementById('search-btn').addEventListener('click', searchMeal);
-    const displayFood = meals => {
-        let mainDiv = document.getElementById('main-container');
-        mainDiv.textContent = '';
-        meals.forEach(meal => {
-            let div = document.createElement('div');
-            div.classList.add('card-detail');
-            div.innerHTML = `
-                <div class="card">
-                    <img src="${meal.strMealThumb}" class="card-img" alt="${meal.strMeal}">
-                    <div class="content">
-                        <h3 class="card-title">${meal.strMeal}</h3>
-                        <p class="card-text">${meal.strInstructions.slice(0, 150)}...</p>
-                        <button onclick="loadSingleItem(${meal.idMeal})" type="button" class="button">View Recipe</button>
-                    </div>
-                </div>
-            `;
-            mainDiv.appendChild(div);
+function getRecipes(query) {
+    let apiKey = 'febb270baamshea61e9318c28fd4p188726jsnc465ea781dd3';
+    let apiHost = 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com';
+    axios.get(`https://${apiHost}/recipes/complexSearch`, {
+        params: {
+            query: query,
+        },
+        headers: {
+            'X-RapidAPI-Key': apiKey,
+            'X-RapidAPI-Host': apiHost
+        }
+    })
+        .then((response) => {
+            let recipes = response.data.results;
+            displayRecipes(recipes);
+        })
+        .catch((error) => {
+            console.log(error);
         });
-    };
-    window.displayFood = displayFood;
 }
-window.onload = function () { initialize();
-    for (let i = 0; i < 10; i++) {
-        randomRecipe();
-    } 
-}
-function initializeSearch() {
-    document.getElementById('search-btn').addEventListener('click', searchMeal);
-    const displayFood = meals => {
-        let mainDiv = document.getElementById('main-container');
-        mainDiv.textContent = '';
-        meals.forEach(meal => {
-            let div = document.createElement('div');
-            div.classList.add('card-detail');
-            div.innerHTML = `
-                <div class="card">
-                    <img src="${meal.strMealThumb}" class="card-img" alt="${meal.strMeal}">
-                    <div class="content">
-                        <h3 class="card-title">${meal.strMeal}</h3>
-                        <p class="card-text">${meal.strInstructions.slice(0, 150)}...</p>
-                        <button onclick="loadSingleItem(${meal.idMeal})" type="button" class="button">View Recipe</button>
-                    </div>
-                </div>
-            `;
-            mainDiv.appendChild(div);
-        });
-    };
-    window.displayFood = displayFood;
-}
+document.getElementById('search-form').addEventListener('submit', function(event) {  
+    event.preventDefault(); // Prevent the form from submitting normally  
 
-// function to search for recipes
-function searchMeal() {
-    let inputField = document.getElementById('search-box');
-    let mealName = inputField.value.trim(); 
-    let error = document.getElementById('input-error');
-    if (mealName !== '') {
-        const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`;
-        fetch(url)
-            .then(response => response.json())
-            .then(data => {
-                if (data.meals) {
-                    displayFood(data.meals); 
-                    error.innerText = '';
-                } else {
-                    error.innerText = 'No results found. Please try another food name.';
-                }
-            })
-            .catch(err => {
-                error.innerText = 'An error occurred while fetching data.';
-                console.error(err);
-            });
-    } else {
-        error.innerText = 'Please insert food name. e.g., fish pie, chicken, etc.';
+    let query = document.getElementById('search-box').value; // Get the value from the search box  
+    getRecipes(query); // Call the function to fetch recipes  
+}); 
+
+// Function to display recipes search
+function displayRecipes(recipes) {
+    let recipeContainer = document.getElementById('main-container'); // Assuming you want to display in this section  
+    recipeContainer.innerHTML = ""; // Clear previous results  
+
+    if (recipes.length === 0) {
+        recipeContainer.innerHTML = "<p>No recipes found.</p>"; // Message if no recipes found  
+        return;
     }
-    inputField.value = ''; 
-}
 
-function readMore(categoryName, additionalInfo) {
-    const modalBody = document.getElementById('categories');
-    modalBody.innerHTML = `
-        <h4>${categoryName}</h4>
-        <p>${additionalInfo}</p>
-    `;
-}
+    // Iterate and display each recipe  
+    recipes.forEach(recipe => {
+        let recipeDiv = document.createElement('div'); // Create a new div for each recipe  
+        recipeDiv.className = 'card-detail'; // Class for styling  
+
+        // Customize how each recipe is displayed  
+        recipeDiv.innerHTML = `  
+            <img src="${recipe.image}" alt="${recipe.title}" class="card-img"> <!-- Display image -->  
+            <div class="content">  
+                <h3>${recipe.title}</h3>  
+                <p>Ready in: ${recipe.readyInMinutes} minutes</p>  
+                <button type="button" onclick="loadSingleItem(${recipe.id})" class="button">View Recipe</button>  
+            </div>  
+        `;
+
+        recipeContainer.appendChild(recipeDiv); // Append the recipe div to the container  
+    });
+
+    // Optional: Scroll to the top of the recipes section after displaying recipes  
+    window.scrollTo(0, document.getElementById('recipe-container').offsetTop);
+}  
+
+    // let apiKey = 'febb270baamshea61e9318c28fd4p188726jsnc465ea781dd3';
+    // let apiHost = 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com';

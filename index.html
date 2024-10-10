@@ -4,54 +4,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="src/style.css">
+    <link rel="stylesheet" href="src/Style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">  -->
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+      <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <title>Recipe web 🥗</title>
 </head>
+<body class="min-h-screen scroll-m-0">
+    <!-- The header section -->
+<section>  
+    <header class=" bg-blue-900 w-full">  
+        <div class="container mx-auto">  
+            <nav class="flex justify-end px-2">  
+                <ul class="flex space-x-5 list-none text-white p-6">  
+                    <li>
+                        <a href="#" class="text-white-500 text-xl hover:text-blue-300 transition duration-300">Home</a>  
+                    </li>  
+                    <li>  
+                        <a href="#recipes" class="text-white-500 text-xl hover:text-blue-300 transition duration-300">Recipes</a>  
+                    </li>  
+                    <li>  
+                        <a href="#about" class="text-white-500 text-xl hover:text-blue-300 transition duration-300">About</a>  
+                    </li>  
+                    <li>  
+                        <a href="#contact" class="text-white-500 text-xl hover:text-blue-300 transition duration-300">Contact</a>  
+                    </li>  
+                </ul>  
+            </nav>  
+        </div>  
+    </header>  
+</section>
 
-<body>
+<section>
+    <div class=" bg-gray-100 py-12" id="search">
+        <div class="container mx-auto">
+            <h1 class="text-black text-6xl text-center font-semibold mb-6 ">Search your favorite food</h1>
 
-    <section>
-        <header class="header-text">
-            <div class="nav-bar">
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#recipes">Recipes</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-
-            </div>
-        </header>
-    </section>
-
-    <section >
-        <div class="hero" id="search">
-            <div class="text-center">
-                <h1 class="text-warning">Search your favorite food</h1>
-    
-                <form action="/search" method="GET" class="">
-                    <div class="search-cont">
-                        <input id="search-box" type="text" name="query" class="form" placeholder="Search"
-                        aria-label="Search" aria-describedby="basic-addon2" required>
-                        <button id="search-btn" class="button-btn" type="submit">Search Recipe</button>
-                    </div>
-                </form>
-                <p id="input-error" class="text-danger text-center"></p>
-            </div>
+            <form action="/search" method="GET" id="search-form" class="flex justify-center">
+                <div class="search-cont flex items-center">
+                    <input id="search-box" type="text" name="query"
+                        class="form w-96 p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Search" aria-label="Search" required>
+                    <button id="search-btn"
+                        class="button-btn bg-blue-400 text-white p-4 rounded-md ml-6 hover:bg-blue-600 transition duration-200"
+                        type="submit">Search Recipe</button>
+                </div>
+            </form>
+            <p id="input-error" class="text-red-500 text-center mt-4"></p>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-----Recipes Section Start---------------------------------->
-<section class="Recipes-section" id="recipe-container">
-    <div class="recipe" id="recipes" >
-        <h2>Featured Recipes</h2>
-        <div class="box" id ="main-container" >
-            <div class="card-detail">
+<section>
+    <div class="recipe w-full mx-auto flex flex-wrap justify-center " id="recipes recipe-container" >
+        <h2 class="text-6xl first-letter:capitalize mt-0 mb-5 text-center text-blue-950">Featured Recipes</h2>
+
+        <div class="flex justify-center flex-wrap " id="main-container">
+
+            <div class="card-detail" >
                 <img src="momo.jpg" alt="" class="card-img">
                 <div class="content">
                     <h3>Recipe 1</h3>
@@ -59,7 +72,7 @@
                     <button type="button" onclick="loadSingleItem()" id="instructions" class="button" >View Recipe</button>
                 </div>
             </div>
-            <div class="card-detail" id="main-container">
+            <div class="card-detail">
                 <img src="menu-momo.jpg" alt="" class="card-img">
                 <div class="content">
                     <h3>Recipe 2</h3>
@@ -68,7 +81,7 @@
                     <button>View Recipe</button>
                 </div>
             </div>
-            <div class="card-detail" id="main-container">
+            <div class="card-detail">
                 <img src="pizza.jpg" alt="" class="card-img">
                 <div class="content">
                     <h3>Recipe 3</h3>
@@ -118,7 +131,7 @@
             </div>
         </div>
 
-        <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal" id="exampleModal">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -241,7 +254,8 @@
         <h5>CopyRight © 2024 By Risper Njeri Recipes </h5>
     </footer>
     <script src="src/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script> -->
+     <script src=" https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
 
 
 </body>

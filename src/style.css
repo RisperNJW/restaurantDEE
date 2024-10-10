@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
     margin: 0;
     padding: 0;
@@ -6,55 +10,6 @@
 }
 html {
     scroll-behavior: smooth;
-}
-
-header {
-    width: 100%;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding:0 100px;
-    background: #244977;
-}
-.nav-bar {
-    display: flex;
-    list-style: none;
-}
-.nav-bar ul {
-    display: flex;
-    list-style: none;
-}
-
-.nav-bar ul li a {
-    display: block;
-    color: #edffef;
-    font-size: 20px;
-    padding: 8px 25px;
-    transition: .2s;
-    margin: 0 5px;
-    text-decoration: none;
-}
-
-.nav-bar ul li a:hover {
-    background-color: #97a2a3;
-    color: #213032;
-    cursor: pointer;
-
-}
-
-.hero {
-    height: 60vh;
-    width: 100%;
-    background-image: url(../food-bg.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.text-center {
-    position: relative;
-    top: 50%;
-    transform: translateY(-60%);
 }
 
 h1 {
@@ -75,41 +30,6 @@ h4 {
     color: #b3aef7;
     letter-spacing: 2px;
     font-size: 20px;
-}
-.input {
-    position: relative;
-    width: 100%;
-    height: 50px;
-    margin-bottom: 20px;
-    margin-left: 20px;
-}
-.form {
-    width: 30%;
-    height: 50px;
-    background: transparent;
-    border: 4px solid #b5c4c6;
-    margin: 10px 0px;
-    border-radius: 50px;
-    padding: 0 10px;
-    color: #e2f2f4;
-    font-size: 20px;
-    outline: none;
-}
-
-.button-btn {
-    background-color: #183354;
-    color: #fff;
-    text-decoration: none;
-    border: 2px solid black;
-    font-weight: bold;
-    padding: 15px 25px;
-    transform: .4s;
-    border-radius: 50px;
-}
-
-.button:hover {
-    background-color: #fff;
-    color: #213032;
 }
 
 .about {
@@ -157,14 +77,6 @@ h4 {
     padding: 40px 0px;
     background-color: #D1D2D3;
 }
-.recipe h2 {
-    color: #051207;
-    font-size: 75px;
-    text-transform: capitalize;
-    margin-top: 0px;
-    margin-bottom: 20px;
-    text-align: center;
-}
 .box {
     display: flex;
     flex-wrap: wrap;
@@ -207,6 +119,7 @@ h4 {
     margin-top: 0;
     margin-bottom: 10px;
     color: #213032;
+    font-weight: bold;
 }
 
 .box .card-detail p {
@@ -222,7 +135,7 @@ h4 {
     border: 2px solid black;
     font-weight: bold;
     transform: .4s;
-    padding: 13px 30px;
+    padding: 5px 8px;
 }
 
 .box .card button:hover {
@@ -249,7 +162,7 @@ h4 {
 
 .modal-content {  
   margin: 15% auto;   
-  padding: 20px; 
+  padding: 15px; 
   background-color: #c7d1d2;  
   border: 1px solid #888;   
   width: 60%;   
